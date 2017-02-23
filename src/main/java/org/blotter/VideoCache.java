@@ -23,9 +23,9 @@ public class VideoCache {
         }
 
 //        Stopwatch stopwatch = Stopwatch.createStarted();
-        YouTube endpoints = readFileToEndpoints(Paths.get("data/" + filename).toAbsolutePath().toFile());
+        YouTube youTube = readFileToYouTube(Paths.get("data/" + filename).toAbsolutePath().toFile());
 
-        System.out.println(endpoints);
+        System.out.println(youTube);
     }
 
     private static String getFilenameFromSystemIn() {
@@ -35,7 +35,7 @@ public class VideoCache {
         return scanner.nextLine();
     }
 
-    private static YouTube readFileToEndpoints(File file) throws Exception {
+    private static YouTube readFileToYouTube(File file) throws Exception {
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String[] s = br.readLine().split("\\s+");
 
