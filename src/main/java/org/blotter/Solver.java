@@ -7,20 +7,20 @@ import java.util.*;
  */
 public class Solver {
 
-    private Map<Integer, List<Video>> cacheEntries = new HashMap<>();
+    private Map<Integer, Set<Video>> cacheEntries = new HashMap<>();
     private int cacheSize;
 
     public Solver(int cacheSize) {
         this.cacheSize = cacheSize;
     }
 
-    public Map<Integer, List<Video>> solve(List<Endpoint> endpoints) {
+    public Map<Integer, Set<Video>> solve(List<Endpoint> endpoints) {
         for (Endpoint endpoint : endpoints) {
             List<Map.Entry<Integer, Integer>> lats = new ArrayList<>(endpoint.latencies.entrySet());
             lats.sort(Comparator.comparing(Map.Entry::getValue));
             endpoint.videoRequests.forEach((Video video, Integer count) -> {
-                findFirstAvailableCache(video, lats, endpoint.endpointLatency).ifPresent(cacheId->{
-                    cacheEntries.computeIfAbsent(cacheId, ArrayList::new).add(video);
+                findFirstAvailableCache(video, lats, endpoint.endpointLatency).ifPresent(cacheId -> {
+                    cacheEntries.computeIfAbsent(cacheId, HashSet::new).add(video);
                 });
             });
         }
@@ -40,8 +40,8 @@ public class Solver {
         return Optional.empty();
     }
 
-    private int emptySpace(int cache, Map<Integer, List<Video>> caches) {
-        return cacheSize - caches.getOrDefault(cache,new ArrayList<>()).stream().mapToInt(Video::getSize).sum();
+    private int emptySpace(int cache, Map<Integer, Set<Video>> caches) {
+        return cacheSize - caches.getOrDefault(cache, new HashSet<>()).stream().mapToInt(Video::getSize).sum();
     }
 
 }

@@ -27,9 +27,9 @@ public class VideoCache {
 
         System.out.println(youTube);
 
-        Map<Integer, List<Video>> cacheEntries = new Solver(youTube.cacheSize).solve(youTube.endpoints);
+        Map<Integer, Set<Video>> cacheEntries = new Solver(youTube.cacheSize).solve(youTube.endpoints);
 
-        List<Map.Entry<Integer, List<Video>>> solution = cacheEntries.entrySet().stream().filter(e -> !e.getValue().isEmpty()).collect(Collectors.toList());
+        List<Map.Entry<Integer, Set<Video>>> solution = cacheEntries.entrySet().stream().filter(e -> !e.getValue().isEmpty()).collect(Collectors.toList());
         System.out.println(solution.size());
         solution.forEach(cacheEntry->{
             System.out.print(cacheEntry.getKey());
