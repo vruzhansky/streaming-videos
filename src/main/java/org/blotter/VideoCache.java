@@ -39,7 +39,12 @@ public class VideoCache {
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;
             String[] s = br.readLine().split("\\s+");
-//            Pizza pizza = new Pizza(Integer.parseInt(s[0]), Integer.parseInt(s[1]), Integer.parseInt(s[2]), Integer.parseInt(s[3]));
+
+            int videos = Integer.parseInt(s[0]);
+            int endpoints = Integer.parseInt(s[1]);
+            int requests = Integer.parseInt(s[2]);
+            int caches = Integer.parseInt(s[3]);
+            int cacheSize = Integer.parseInt(s[4]);
 
             int i = 0;
             while ((line = br.readLine()) != null) {

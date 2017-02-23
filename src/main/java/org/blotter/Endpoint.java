@@ -1,12 +1,11 @@
 package org.blotter;
 
-import java.util.List;
 import java.util.Map;
 
 public class Endpoint {
-    List<Integer> caches;
+    int endpointLatency;
 
-    Map<Integer, Integer> latencies;
+    Map<Integer, Integer> latencies; // cacheId -> latency
 
-    Map<Integer, Integer> videoRequests;
+    Map<Video, Integer> videoRequests; // video -> numOfRequests
 }
