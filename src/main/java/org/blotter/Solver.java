@@ -15,6 +15,8 @@ public class Solver {
     }
 
     public Map<Integer, Set<Video>> solve(List<Endpoint> endpoints) {
+        endpoints.sort((a, b) -> b.endpointLatency - a.endpointLatency);
+
         for (Endpoint endpoint : endpoints) {
             List<Map.Entry<Integer, Integer>> lats = new ArrayList<>(endpoint.latencies.entrySet());
             lats.sort(Comparator.comparing(Map.Entry::getValue));
