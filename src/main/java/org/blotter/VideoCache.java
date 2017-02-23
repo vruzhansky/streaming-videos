@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.lang.management.ManagementFactory;
 import java.nio.file.Paths;
+import java.util.*;
+import java.util.stream.Collectors;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -12,8 +14,6 @@ import java.util.Scanner;
 public class VideoCache {
 
     public static void main(String[] args) throws Exception {
-
-        System.out.println(ManagementFactory.getRuntimeMXBean().getName());
 
         String filename;
         if (0 < args.length) {
@@ -24,6 +24,20 @@ public class VideoCache {
 
 //        Stopwatch stopwatch = Stopwatch.createStarted();
         YouTube youTube = readFileToYouTube(Paths.get("data/" + filename).toAbsolutePath().toFile());
+
+        System.out.println(youTube);
+
+        Map<Integer, List<Video>> cacheEntries = new Solver(youTube.cacheSize).solve(youTube.endpoints);
+
+        List<Map.Entry<Integer, List<Video>>> solution = cacheEntries.entrySet().stream().filter(e -> !e.getValue().isEmpty()).collect(Collectors.toList());
+        System.out.println(solution.size());
+        solution.forEach(cacheEntry->{
+            System.out.print(cacheEntry.getKey());
+            for (Video video : cacheEntry.getValue()) {
+                System.out.print(" "+video.getId());
+            }
+            System.out.println();
+        });
 
         System.out.println(youTube);
     }
