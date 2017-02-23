@@ -1,11 +1,16 @@
 package org.blotter;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class Endpoint {
-    int endpointLatency;
+    final int endpointLatency;
 
-    Map<Integer, Integer> latencies; // cacheId -> latency
+    final Map<Integer, Integer> latencies = new HashMap<>(); // cacheId -> latency
 
-    Map<Video, Integer> videoRequests; // video -> numOfRequests
+    final Map<Video, Integer> videoRequests = new HashMap<>(); // video -> numOfRequests
+
+    public Endpoint(int endpointLatency) {
+        this.endpointLatency = endpointLatency;
+    }
 }

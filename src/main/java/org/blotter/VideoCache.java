@@ -40,11 +40,34 @@ public class VideoCache {
             String line;
             String[] s = br.readLine().split("\\s+");
 
-            int videos = Integer.parseInt(s[0]);
+//            int videos = Integer.parseInt(s[0]);
             int endpoints = Integer.parseInt(s[1]);
             int requests = Integer.parseInt(s[2]);
             int caches = Integer.parseInt(s[3]);
             int cacheSize = Integer.parseInt(s[4]);
+
+            s = br.readLine().split("\\s+");
+
+            // videos
+            List<Video> videos = new ArrayList<>();
+            int videoId = 0;
+            for (String ss: s) {
+                videos.add(new Video(videoId, Integer.parseInt(ss)));
+                videoId ++;
+            }
+
+            for (int i = 0; i<endpoints; i++) {
+                s = br.readLine().split("\\s+");
+
+                int endpointLatency = Integer.parseInt(s[0]);
+                int connectedCaches = Integer.parseInt(s[1]);
+
+                for (int j = 0; j<connectedCaches; j++) {
+                    s = br.readLine().split("\\s+");
+                    int cacheId = Integer.parseInt(s[0]);
+                    int latency = Integer.parseInt(s[1]);
+                }
+            }
 
             int i = 0;
             while ((line = br.readLine()) != null) {
