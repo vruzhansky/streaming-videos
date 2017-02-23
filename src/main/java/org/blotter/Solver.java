@@ -18,7 +18,7 @@ public class Solver {
         for (Endpoint endpoint : endpoints) {
             List<Map.Entry<Integer, Integer>> lats = new ArrayList<>(endpoint.latencies.entrySet());
             lats.sort(Comparator.comparing(Map.Entry::getValue));
-            endpoint.videoRequests.forEach((Video video, Integer count) -> {
+            endpoint.videoRequests.forEach((video, reqCount) -> {
                 findFirstAvailableCache(video, lats, endpoint.endpointLatency).ifPresent(cacheId -> {
                     cacheEntries.computeIfAbsent(cacheId, HashSet::new).add(video);
                 });
