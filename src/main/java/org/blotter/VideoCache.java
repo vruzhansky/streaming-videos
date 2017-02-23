@@ -32,7 +32,6 @@ public class VideoCache {
             for (Video video : cacheEntry.getValue()) {
                 writer.print(" " + video.getId());
             }
-            writer.println();
         });
 
         writer.close();
