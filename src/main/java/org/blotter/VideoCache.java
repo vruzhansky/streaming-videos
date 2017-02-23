@@ -6,6 +6,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.lang.management.ManagementFactory;
+import java.nio.file.Paths;
 import java.util.*;
 
 public class VideoCache {
@@ -21,8 +22,10 @@ public class VideoCache {
             filename = getFilenameFromSystemIn();
         }
 
-        Stopwatch stopwatch = Stopwatch.createStarted();
+//        Stopwatch stopwatch = Stopwatch.createStarted();
+        List<Endpoint> endpoints = readFileToEndpoints(Paths.get("data/" + filename).toAbsolutePath().toFile());
 
+        System.out.println(endpoints);
     }
 
     private static String getFilenameFromSystemIn() {
