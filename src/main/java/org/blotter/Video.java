@@ -32,4 +32,11 @@ public class Video {
     public int hashCode() {
         return id;
     }
+
+    @Override
+    public String toString() {
+        return "Video{" +
+                "id=" + id +
+                '}';
+    }
 }
