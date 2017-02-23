@@ -35,7 +35,7 @@ public class VideoCache {
         return scanner.nextLine();
     }
 
-    private static Videos readFileToPizza(File file) throws Exception {
+    private static List<Endpoint> readFileToPizza(File file) throws Exception {
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;
             String[] s = br.readLine().split("\\s+");
