@@ -1,15 +1,9 @@
 package org.blotter;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.lang.management.ManagementFactory;
+import java.io.*;
 import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
 
 public class VideoCache {
 
@@ -22,24 +16,26 @@ public class VideoCache {
             filename = getFilenameFromSystemIn();
         }
 
-//        Stopwatch stopwatch = Stopwatch.createStarted();
         YouTube youTube = readFileToYouTube(Paths.get("data/" + filename).toAbsolutePath().toFile());
-
-        System.out.println(youTube);
-
         Map<Integer, Set<Video>> cacheEntries = new Solver(youTube.cacheSize).solve(youTube.endpoints);
 
         List<Map.Entry<Integer, Set<Video>>> solution = cacheEntries.entrySet().stream().filter(e -> !e.getValue().isEmpty()).collect(Collectors.toList());
-        System.out.println(solution.size());
-        solution.forEach(cacheEntry->{
-            System.out.print(cacheEntry.getKey());
+
+        saveSolution(filename, solution);
+    }
+
+    private static void saveSolution(String fileName, List<Map.Entry<Integer, Set<Video>>> solution) throws FileNotFoundException, UnsupportedEncodingException {
+        PrintWriter writer = new PrintWriter("results/" + fileName.replace(".in", ".out"), "UTF-8");
+        writer.println(solution.size());
+        solution.forEach(cacheEntry -> {
+            writer.print(cacheEntry.getKey());
             for (Video video : cacheEntry.getValue()) {
-                System.out.print(" "+video.getId());
+                writer.print(" " + video.getId());
             }
-            System.out.println();
+            writer.println();
         });
 
-        System.out.println(youTube);
+        writer.close();
     }
 
     private static String getFilenameFromSystemIn() {
