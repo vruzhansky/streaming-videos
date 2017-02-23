@@ -1,13 +1,13 @@
 package org.blotter;
 
-import com.google.common.base.Stopwatch;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.lang.management.ManagementFactory;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
 
 public class VideoCache {
 
@@ -23,7 +23,7 @@ public class VideoCache {
         }
 
 //        Stopwatch stopwatch = Stopwatch.createStarted();
-        List<Endpoint> endpoints = readFileToEndpoints(Paths.get("data/" + filename).toAbsolutePath().toFile());
+        YouTube endpoints = readFileToEndpoints(Paths.get("data/" + filename).toAbsolutePath().toFile());
 
         System.out.println(endpoints);
     }
@@ -35,7 +35,7 @@ public class VideoCache {
         return scanner.nextLine();
     }
 
-    private static List<Endpoint> readFileToEndpoints(File file) throws Exception {
+    private static YouTube readFileToEndpoints(File file) throws Exception {
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String[] s = br.readLine().split("\\s+");
 
@@ -84,7 +84,7 @@ public class VideoCache {
                 endpoints.get(endpointId).videoRequests.put(videos.get(videoId), numOfRequests);
             }
 
-            return new ArrayList<>(endpoints.values());
+            return new YouTube(numOfCaches, cacheSize, endpoints.values());
         }
     }
 }
