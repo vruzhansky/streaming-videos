@@ -1,21 +1,12 @@
 package org.blotter;
 
-public class Video {
+class Video {
+    final int id;
+    final int size;
 
-    private final int id;
-    private final int size;
-
-    public Video(int id, int size) {
+    Video(int id, int size) {
         this.id = id;
         this.size = size;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public int getSize() {
-        return size;
     }
 
     @Override

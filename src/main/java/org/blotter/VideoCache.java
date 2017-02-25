@@ -17,7 +17,7 @@ public class VideoCache {
         }
 
         YouTube youTube = readFileToYouTube(Paths.get("data/" + filename).toAbsolutePath().toFile());
-        Map<Integer, Set<Video>> cacheEntries = new Solver(youTube.cacheSize).solve(youTube.endpoints);
+        Map<Integer, Set<Video>> cacheEntries = new Solver(youTube).solve();
 
         List<Map.Entry<Integer, Set<Video>>> solution = cacheEntries.entrySet().stream().filter(e -> !e.getValue().isEmpty()).collect(Collectors.toList());
 
@@ -30,7 +30,7 @@ public class VideoCache {
         solution.forEach(cacheEntry -> {
             writer.print(cacheEntry.getKey());
             for (Video video : cacheEntry.getValue()) {
-                writer.print(" " + video.getId());
+                writer.print(" " + video.id);
             }
             writer.println();
         });
@@ -80,6 +80,7 @@ public class VideoCache {
 
                     endpoint.latencies.put(cacheId, latency);
                 }
+                endpoint.sortLats();
                 endpoints.put(i, endpoint);
             }
 
